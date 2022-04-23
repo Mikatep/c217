@@ -1,16 +1,16 @@
 #!/bin/sh
 
-echo $USER
+echo "Your user is: $USER"
 
-date +%Y.%m.%d
+echo "The date is:" `date +%Y.%m.%d`
 
-date +%T
+echo "The time is:" `date +%T`
 
-pwd
+echo "The current working directory is " `pwd`
 
-ls | wc -l
+echo "There are `ls | wc -l` files in your directory"
 
-du -a /home/ec2-user/c217 |sort -n -r | head -n 1
+larg=`du -sh *| sort -rh | head -1`
 
-
+echo "Biggest file in your directory is : $larg"
 
