@@ -21,23 +21,7 @@ done
 read -p "Please Enter your lottery numbers followed by your bonus numner:" balls
 read -p "Enter the date YY/MM/DD:" date
 
-balls=(`echo $balls | sort -g | tr ' ' ' '`) | echo ${balls[@]}
-lottery=(`echo $lottery | sort -g |  tr ' ' ' '`) | echo ${lottery[@]}
-	
-matches=0
+balls=(`echo $balls | tr ' ' ' '`)
+lottery=(`echo $lottery | tr ' ' ' '`)
 
-
-`diff -y <(printf '%s\n' "${balls[@]}")  <(printf '%s\n' "${lottery[@]}")`
-
-echo "You have got $matches matches"
-
-
-
-
-
-
-
-
-
-
-
+echo `grep $date ${balls[0..4]} lotery.log`

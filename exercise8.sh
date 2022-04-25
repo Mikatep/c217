@@ -1,51 +1,70 @@
 #!/bin/sh
 
-min=99999
-max=-9999
-sum=0
-pro=1
-avg=0
-ch=y
 
-echo "Enter between 5 and 10 integers:" 
-read 
-for ((i=0;i<10;i++))
+arrNum=()
+
+while [ ${#arrNum[@]} -le 4 ]
 do
-	if [$i -gt 4]
-	then
-		echo "enter" $(($i+1))"th number:y/n"
-		read ch
-	if [$ch = 'n']
-	then
+	echo "Please insert a random number:"
+	read N1
 
-	break
+	if ! [[ "$N1" =~ ^[0-9]+$ ]]; then
+   		echo "Contains letters!"
+	else
+		arrNum+=($N1)
+	echo ${arrNum[@]}
 	fi
+done
+while [ ${#arrNum[@]} -le 9 ]
+do
+	echo "Do you want to add another number? (y/n)?"
+        read answer
 
-	fi
+	 if [ "$answer" != "${answer#[Yy]}" ]; then
 
-	read m
-	a[i]=$m
-
-	sum=$(($sum=$m))
-
-	if [$m -gt $max]
-	then
-		max=$m
-	fi
-
-	if [$m -lt $min]
-	then
-		min=$m
-	fi
-
-	pro=$(($pro*$m))
+		echo "Please insert a random number:"
+		read N1
+       			 if ! [[ "$N1" =~ ^[0-9]+$ ]]; then
+                	echo "Contains letters!"
+       		 else
+                	arrNum+=($N1)
+		#	 echo ${arrNum[@]}
+        		fi
+	 else
+		 break
+	 fi
 done
 
-avg=$(($sum/$i))
+product=1
+sum=0
+average=0
+for (( i = 0;i < ${#arrNum[@]}; ++i )); do
+	product=$(($product*${arrNum[$i]}))
+	sum=$(($sum+${arrNum[$i]}))
+	average=$(($sum/${#arrNum[@]}))
+done
 
-echo "numbers entered by user:" ${a[@]}
-echo "sum:" $sum
-echo "min:" $min
-echo "max:" $max
-echo "product:" $pro
-echo "avg:" $avg
+max=${arrNum[0]}
+min=${arrNum[0]}
+for i in "${arrNum[@]}";do
+  (( i > max )) && max=$i
+  (( i < min )) && min=$i
+done
+
+echo "Your choosen numbers are:"
+echo ${arrNum[@]}
+
+echo "The product of your choosen numbers is:"
+echo $product
+
+echo "the average of your choosen numbers is:"
+echo $average
+
+echo "The sum of your choosen numbers is:"
+echo $sum
+
+echo "The minimum value of your choosen numbers is:"
+echo $min
+
+echo "The maximum value of your choosen numbers is:"
+echo $max

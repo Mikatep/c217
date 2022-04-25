@@ -1,13 +1,30 @@
 #!/bin/sh
 
-file1=\home\ec2-user\c217\file1.txt
-file2=\home\ec2-user\c217\file2.txt
+difference1=`comm -1 -3 <(sort file1.txt) <(sort file2.txt)`
 
-echo "File 1 contains:"
-echo `comm -13 .\home\ec2-user\c217\file1.txt <\( sort -nu .\home\ec2-user\c217\file2.txt)`
+difference2=`comm -2 -3 <(sort file1.txt) <(sort file2.txt)`
 
-echo "File 2 contains:"
-echo `comm -23 <\(sort $file1\) <\( sort -nu $file2\)`
+echo "Only in file 1 $difference1"
+
+echo "Only in file 2 $difference"
+
+
+#using grep
+
+echo "Only in file 2: `grep -xvf file1.txt file2.txt`"
+echo "ONly in file 1: `grep -xvf file2.txt file1.txt`"
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,11 +1,32 @@
 #!/bin/sh
 
-read -p "Enter your numbers:" balls  
-read -p "Enter your number:" bonus
+ 
+read -p "Please Enter your lottery numbers followed by your bonus numner:" balls
+read -p "Enter the date YY/MM/DD:" date
 
-echo $balls >> userlotery.log
-echo $bonus >> userlotery.log
+echo "You want to check the following numbers: $balls" 
+echo "For the following date: $date"
 
-echo ` grep -f userlotery.log lotery.log`
+lotterystring="$(cat $date)"
+lottery=(`echo $lotterystring | tr ' ' ' '`)
+balls=(`echo $balls | tr ' ' ' '`)
+
+echo ${balls[@]}
+
+matches=0
+
+for((i=0;i<${#balls[*]}-1;i++));do
+    for((j=0;j<${#lottery[*]}-1;j++)) ;do
+        if [ ${balls[i]} = ${lottery[j]} ] ;then
+             let counter++
+        fi
+        
+    done
+done
+
+echo "You have $matches matches"
+
+
+
 
 
